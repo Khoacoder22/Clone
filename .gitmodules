@@ -1,0 +1,3 @@
+[submodule "src/admin/dashboard"]
+	path = src/admin/dashboard
+	url = https://gitlab.com/docongba/tico-admin.git

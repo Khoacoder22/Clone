@@ -17,6 +17,9 @@ module.exports = defineConfig({
       ssl: false,
       sslmode: "disable",
     },
+    admin: {
+      disable: true // ℹ️ This will not serve the Admin UI
+    },
 
   }
 })

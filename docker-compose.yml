@@ -49,6 +49,22 @@ services:
     networks:
       - medusa_network
 
+# Admin Panel (Standalone Static)
+  admin:
+    build:
+      context: ./src/admin/dashboard  
+      dockerfile: Dockerfile.admin
+    container_name: medusa_admin_tico
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=production
+      - VITE_MEDUSA_BACKEND_URL=${VITE_MEDUSA_BACKEND_URL:-http://localhost:9000}
+      - VITE_MEDUSA_STOREFRONT_URL=${VITE_MEDUSA_STOREFRONT_URL:-http://localhost:8000}
+    networks:
+      - medusa_network
+
 volumes:
   postgres_data:
 
