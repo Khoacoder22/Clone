@@ -29,7 +29,6 @@ COPY --from=builder /server ./
 COPY start.sh ./start.sh
 RUN chmod +x ./start.sh
 
-COPY .env ./
 
 EXPOSE 9000
 
