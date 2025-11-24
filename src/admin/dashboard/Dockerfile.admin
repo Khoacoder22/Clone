@@ -1,0 +1,28 @@
+# Stage 1: Build dependencies and source
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# RUN npm install -g yarn@3.2.1
+RUN yarn set version  3.2.1
+
+RUN corepack enable
+COPY package.json yarn.lock .yarnrc.yml ./
+RUN yarn install --frozen-lockfile
+
+COPY . .
+RUN yarn build:preview  
+
+# Stage 2: Serve static files with Node.js
+FROM node:20-alpine
+
+WORKDIR /app
+
+RUN corepack enable
+COPY --from=builder /app/dist ./dist
+COPY package.json ./
+# RUN yarn add serve@^14.2.1 --production --frozen-lockfile
+
+EXPOSE 5173
+
+CMD ["npx", "serve", "-s", "dist", "-l", "5173"]
